@@ -25,6 +25,13 @@ function App() {
     }
   };
 
+  const handleBackspace = (e, currentRef, prevRef) => {
+    if (e.key === 'Backspace' && currentRef.current.value === '') {
+      e.preventDefault();
+      prevRef.current.focus();
+    }
+  };
+
   const controlInput = (ref) => {
     if (ref.current.value.length > ref.current.maxLength)
       ref.current.value = ref.current.value.slice(-1);
@@ -48,6 +55,7 @@ function App() {
             ref={input2ref}
             onChange={handleInput2Change}
             onInput={() => controlInput(input2ref)}
+            onKeyDown={(e) => handleBackspace(e, input2ref, input1ref)}
             maxLength={1}
             type='number'
           />
@@ -56,6 +64,7 @@ function App() {
             ref={input3ref}
             onChange={handleInput3Change}
             onInput={() => controlInput(input3ref)}
+            onKeyDown={(e) => handleBackspace(e, input3ref, input2ref)}
             maxLength={1}
             type='number'
           />
@@ -63,6 +72,7 @@ function App() {
             className='numInput'
             ref={input4ref}
             onInput={() => controlInput(input4ref)}
+            onKeyDown={(e) => handleBackspace(e, input4ref, input3ref)}
             maxLength={1}
             type='number'
           />
